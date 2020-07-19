@@ -1,0 +1,8 @@
+ssd_mobilenet_v2_coco.engine
+best_model.pth
+.ipynb_checkpoints
+.DS_Store
+.vscode
+__pycache__
+*.jpg
+*.png
