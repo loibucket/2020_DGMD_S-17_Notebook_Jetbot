@@ -4,6 +4,7 @@ best_model.pth
 .DS_Store
 .vscode
 __pycache__
+*.jpeg
 *.jpg
 *.png
 *.mov
