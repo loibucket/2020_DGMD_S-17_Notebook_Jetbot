@@ -6,3 +6,4 @@ best_model.pth
 __pycache__
 *.jpg
 *.png
+*.mov

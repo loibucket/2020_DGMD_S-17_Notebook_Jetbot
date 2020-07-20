@@ -1,0 +1,4 @@
+sudo nvpmodel
+sudo nvpmodel -q #current power status
+sudo nvpmodel -m0 #max power
+sudo nvpmodel -m1 #5W

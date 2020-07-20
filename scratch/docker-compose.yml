@@ -1,0 +1,61 @@
+version: '2.3'
+
+#networks:
+#  ml-net:
+#    name: ml-net
+#    driver: bridge
+
+services:
+  nvidia-l4t-ml:
+  #nvidia-l4t-pytorch:
+    #image: nvcr.io/nvidia/l4t-ml:r32.4.2-py3
+    image: nvcr.io/nvidia/l4t-ml:r32.4.3-py3
+    #image: nvcr.io/nvidia/l4t-pytorch:r32.4.3-pth1.6-py3
+    ports:
+        - "8887:8887"
+    command:
+        'jupyter lab --ip 0.0.0.0 --port 8887 --allow-root'
+        #default password is nvidia, for nvcr.io/nvidia/l4t-ml:r32.4.3-py3
+    #command: 
+        #'tail -F anything'
+    #networks:
+        #- ml-net
+    runtime: nvidia #only works on version 2.3
+    #network: host #does not work on version 2.3
+    volumes:
+      - ./jetbot:/root/jetbot
+      - ./Notebots--GIT:/root/Notebots--GIT
+      - ./Notebooks:/root/Notebooks
+    restart: always #starts with host system on startup
+
+#NOTES
+#configure nvidia runtime, enable gpu: nano /etc/docker/daemon.json
+
+#start with docker-compose.yml: sudo docker-compose start
+#start with specific filename: sudo docker-compose -f /home/jetbot/docker-compose.yml up -d
+#stop: sudo docker-compose stop
+#stop all containers: docker stop $(docker ps -aq)
+#remove all containers: docker rm $(docker ps -aq)
+
+#access running container: sudo docker exec -it jetbot_nvidia-l4t-pytorch_1 /bin/bash
+#access running container: sudo docker exec -it jetbot_nvidia-l4t-ml_1 /bin/bash
+#start and access container w/o compose: sudo docker run -it --rm --runtime nvidia --network host nvcr.io/nvidia/l4t-ml:r32.4.3-py3
+
+#jupyter notebook --ip 0.0.0.0 --port 2181 --allow-root
+#jupyter lab --ip 0.0.0.0 --port 2181 --allow-root
+
+#The docker-compose stop command will stop your containers, but it won't remove them. The docker-compose down command will stop your containers, but it also removes the stopped containers as well as any networks that were created
+
+#Compose caches the configuration used to create a container. When you restart a service that has not changed, Compose re-uses the existing containers. Re-using containers means that you can make changes to your environment very quickly.
+
+#
+#install cuda10
+#echo "deb [trusted=yes] https://repo.download.nvidia.com/jetson/common r32 main\ndeb [trusted=yes] https://repo.download.nvidia.com/jetson/t210 r32 main" > /etc/apt/sources.list.d/nvidia-l4t-apt-source.list
+#apt install cuda-cudart-10-0 cuda-cusparse-10-0 cuda-cusparse-dev-10-0 cuda-cudart-dev-10-0 cuda-cufft-10-0 cuda-cufft-dev-10-0 cuda-curand-10-0 cuda-curand-dev-10-0 libcudnn7 libcudnn7-dev cuda-cublas-10-0 cuda-cublas-dev-10-0
+
+#ln -sfn /usr/local/cuda-10.0 /usr/local/cuda
+
+#cd /usr/local
+#nano /etc/apt/sources.list.d/nvidia-l4t-apt-source.list
+#deb [trusted=yes] https://repo.download.nvidia.com/jetson/common r32 main
+#deb [trusted=yes] https://repo.download.nvidia.com/jetson/t210 r32 mainz
