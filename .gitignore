@@ -1,5 +1,5 @@
-ssd_mobilenet_v2_coco.engine
-best_model.pth
+*.engine
+*.pth
 .ipynb_checkpoints
 .DS_Store
 .vscode
