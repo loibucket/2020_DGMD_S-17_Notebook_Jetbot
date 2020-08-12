@@ -15,3 +15,6 @@ sleep 10
 sudo /usr/bin/jetson_clocks
 sudo sh -c 'echo 255 > /sys/devices/pwm-fan/target_pwm'
 
+#works for pwm fan only (4pin)
+
+https://github.com/Pyrestone/jetson-fan-ctl
